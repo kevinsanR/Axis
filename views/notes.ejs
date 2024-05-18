@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Notes</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <H1>Notes</H1>
+
+    <form action="/notes" method="GET">
+        <label for="searchInput">Search</label>
+        <input type="text" name="searchTerm" id="searchInput"></input>
+        <button>Search</button>
+    </form>
+
+    <div class="notes">
+        <% notes.forEach(note => { %>
+            <li>
+                <h2><%= note.title %></h2>
+                <% if (note && note.contents) { %>
+                    <% if (note.contents.length > 200) { %>
+                        <p><%= note.contents.substring(0, 200) %>...</p>
+                    <% } else { %>
+                        <p><%= note.contents %></p>
+                    <% } %>
+                <% } else { %>
+                    <p>No content available</p>
+                <% } %>
+                            <p><%= new Date(note.timestamp) %></p>
+                <a href="/notes/<%= note.id%>">View More</a>
+            </li>
+        <% }) %>
+
+    </div>
+
+    <a href="./createNote.ejs">Create New Note</a>
+</body>
+</html>
