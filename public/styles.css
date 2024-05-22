@@ -1,5 +1,5 @@
 body {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Inter";
 }
 
 .box1 {
@@ -14,21 +14,139 @@ body {
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
-.note{
+.note {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
-.notes{
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+.notes {
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  max-width: 80%;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
 }
+.search-form {
+  display: flex;
+  width: 50%;
+}
+.note {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: end;
+  align-items: start;
+  width: 100%;
+}
+
+.note h2 {
+  color: #333;
+}
+
+.note p {
+  color: #666;
+}
+
+.note a {
+  color: #0066cc;
+  text-decoration: none;
+}
+.create-note-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 60vh;
+}
+.create-note-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 708px;
+  height: 50%;
+  font-family: "Inter";
+}
+.title {
+  height: 163px;
+  border: transparent;
+  outline: none; /* Removes the focus outline */
+  font-family: "Inter";
+  font-size: 50px;
+}
+.contents {
+  height: 163px;
+  border: transparent;
+  outline: none; /* Removes the focus outline */
+  font-family: "Inter";
+}
+
+.create-note-button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  background-color: #666;
+}
+
+.create-note-button img {
+  vertical-align: middle;
+  width: 24px; /* Adjust size as needed */
+  height: 24px; /* Adjust size as needed */
+  background-color: #666;
+}
+.sidebar {
+  width: 200px; /* Set the width of the sidebar */
+  height: 100vh; /* Full height */
+  overflow-y: auto; /* Add scroll to sidebar if content is too long */
+  background-color: #f4f4f4; /* Light grey background */
+  padding: 20px; /* Padding around the content */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow on the right side */
+  font-family: "Inter";
+}
+
+.sidebar a {
+  display: block; /* Make links block to take full width of sidebar */
+  padding: 10px; /* Padding for touch friendliness */
+  text-decoration: none; /* No underline */
+  color: black; /* Text color */
+  border-bottom: 1px solid #ddd; /* Separator between items */
+}
+
+.sidebar a:hover {
+  background-color: #ddd; /* Light grey background on hover */
+}
+
+.main-content {
+  flex-grow: 1; /* Take remaining space */
+  padding: 20px; /* Padding around the content */
+}
+#toggleSidebar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+

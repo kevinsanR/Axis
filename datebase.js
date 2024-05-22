@@ -18,34 +18,35 @@ module.exports = connectDB;
 
 
 
-let currentID = 3;
 
-function getNotes(searchTerm) {
+// Get all notes or filter them by searchTerm
+exports.getNotes = async (searchTerm) => {
   if (!searchTerm) {
-    return notes;
+    return Note.find();
   }
-  return notes.filter(
-    (note) =>
-      note.title.includes(searchTerm) || note.contents.includes(searchTerm)
-  );
-}
-exports.getNotes = getNotes;
-function getNote(id) {
-  return notes.find((note) => note.id === id);
-}
-exports.getNote = getNote;
-
-function addNote(note) {
-  notes.push({
-    ...note,
-    id: currentID,
-    timestamp: Date.now(),
+  return Note.find({
+    $or: [
+      { title: { $regex: searchTerm, $options: 'i' } },
+      { contents: { $regex: searchTerm, $options: 'i' } }
+    ]
   });
-  currentID++;
-}
-exports.addNote = addNote;
+};
 
-function deleteNote(id) {
-  notes = notes.filter((note) => note.id !== id);
-}
-exports.deleteNote = deleteNote;
+// Get a single note by ID
+exports.getNote = async (id) => {
+  return Note.findById(id);
+};
+
+// Add a new note
+exports.addNote = async (note) => {
+  const newNote = new Note({
+    ...note,
+    timestamp: new Date()
+  });
+  return newNote.save();
+};
+
+// Delete a note by ID
+exports.deleteNote = async (id) => {
+  return Note.findByIdAndDelete(id);
+};

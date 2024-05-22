@@ -1,64 +1,86 @@
 const express = require("express");
 const app = express();
+const expressLayouts = require("express-ejs-layouts");
+
 const connectDB = require("./datebase");
-const note = require("./notes")
+const Note = require("./notes");
+
 app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "layouts/full-width"); // Check if the path is correct
 app.use(express.urlencoded({ extended: true }));
 connectDB();
-
-
+app.use(express.static("public"));
+const port = 8080;
 
 // The bottom is just routes and function working together that adds functionatlity//
-app.get("/", (req, res) => {
-  res.render("index.ejs");
+
+
+
+
+app.get("/create-note",  (req, res) => {
+  res.render("createNote");
 });
 
-app.get("/notes", (req, res) => {
+app.get("/notes",  async (req, res) => {
   const searchTerm = req.query.searchTerm;
-  const notes = notes.getNotes(searchTerm);
-  res.render("notes.ejs", {
-    notes,
-  });
-});
-
-app.get("/notes/:id", (req, res) => {
-  const id = +req.params.id;
-  const note = note.getNote(id);
-  if (!note) {
-    res.status(404).render("note404.ejs");
-    return;
-  }
-
-  res.render("singleNote.ejs", {
-    note,
-  });
-});
-
-app.get("/createNote", (req, res) => {
-  res.render("./createNote.ejs");
-});
-
-app.post('/notes', async (req, res) => {
   try {
-    const { title, contents } = req.body;
-    const newNote = new note({ title, contents });
-    await newNote.save();
-    res.status(201).send('Note created successfully');
+    const notes = await Note.getNotes(searchTerm);
+    res.render("notes", { notes }); // This should point to a view file `notes.ejs` under `views/`
   } catch (error) {
-    console.error('Error creating note:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error fetching notes:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
-app.post("/notes/:id/delete", (req, res) => {
-  const id = +req.params.id;
-  note.deleteNote(id);
-  res.redirect("/notes");
+app.get('/notes/:id', async (req, res) => {
+  try {
+      const note = await Note.findById(req.params.id);
+      const notes = await Note.find(); // Fetch all notes
+      if (!note) {
+          return res.status(404).send('Note not found');
+      }
+      res.render('noteDetail', { note });  // Pass both the specific note and all notes
+  } catch (error) {
+      console.error('Error fetching note:', error);
+      res.status(500).send('Internal Server Error');
+  }
 });
 
-app.use(express.static("public"));
+// This is the route that creates a new note//
 
-const port = 8080;
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.post("/notes", async (req, res) => {
+  const { title, contents } = req.body;
+  try {
+    const newNote = new Note({
+      title,
+      contents,
+    });
+    await newNote.save();
+    res.redirect("/notes");
+  } catch (error) {
+    console.error("Error creating note:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
+
+app.post("/notes/:id/delete", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await Note.findByIdAndDelete(id);
+    res.redirect("/notes");
+  } catch (error) {
+    console.error("Error deleting note:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+connectDB()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Example app listening at http://localhost:${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Failed to connect to the database:", error);
+  });

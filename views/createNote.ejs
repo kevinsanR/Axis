@@ -1,21 +1,22 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a new Note</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
 </head>
 <body>
-    <h1>Create note</h1>
-    <form action="/notes" method="POST">
-        <label for="titleInput">Title</label>
-        <input type="text" id="titleInput" name="title">
+    <div class="create-note-container">
+        <form class="create-note-form" action="/notes" method="POST">
+            <input class="title" id="titleInput" name="title" placeholder="Untitled">
 
-        <label for="contentsInput">Contents</label>
-        <textarea name="contents" id="contentsInput" cols="30" rows="10"></textarea>
-        <button type="submit">Create Note</button>
-    </form>
+            <textarea class="contents" id="contentsInput" cols="30" rows="10" placeholder="Write your note here..."></textarea>
+            <button class="create-note-button2" type="submit">Create Note</button>
+        </form>
+    </div>
 </body>
 </html>
