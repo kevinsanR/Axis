@@ -10,16 +10,19 @@
 
 <body>
     
-    
+    <!-- Example HTML file or EJS template -->
+
 
     <div class="notes">
-        <% notes.forEach(note => { %>
-            <div class="note">
-                <h2><%= note.title %></h2>
-                <p><%= note.contents %></p>
-                <p>Posted on: <%= new Date(note.timestamp).toLocaleDateString() %></p>
-                <a href="/notes/<%= note.id %>">View More</a>
-            </div>
+        <% notes.forEach((note, index) => { %>
+            <% if (index < 3) { %>
+                <div class="note">
+                    <h2><%= note.title %></h2>
+                    <p><%- note.contents %></p>
+                    <p>Posted on: <%= new Date(note.timestamp).toLocaleDateString() %></p>
+                    <a href="/notes/<%= note.id %>">View More</a>
+                </div>
+            <% } %>
         <% }) %>
     </div>
 

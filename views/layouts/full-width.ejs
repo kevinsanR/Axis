@@ -3,18 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/public/styles.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <aside class="sidebar">
+        <!-- Profile section -->
+        <div class="profile-section">
+            <img src="<%= user.profilePicUrl %>" alt="Profile Picture" class="profile-pic">
+            <p class="user-name">
+                Welcome, <%= user.name %>!
+            </p>
+        </div>
+        
+        <form action="/update-name" method="POST" class="username-form">
+            <input type="text" name="username" placeholder="Enter your name" required class="username-input">
+        </form>
+        <!-- Sidebar content goes here -->
+        <% if (typeof notes !== 'undefined' && notes.length > 0) { %>
+            <% notes.forEach(function(note) { %>
+                <a href="/notes/<%= note.id %>"><%= note.title %></a>
+            <% }); %>
+        <% } else { %>
+            <p>No notes available.</p>
+        <% } %>
+        <!-- Calendar button -->
+        <a href="/calendar" class="calendar-button">
+            View Calendar
+        </a>
+    </aside>
+    <main>
         <nav style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #f8f9fa;">
             <div>
-                <h1><a href="/notes" style="text-decoration: none; color: black;">Notes</a></h1>
+                <h1>
+                    <a href="/notes" style="text-decoration: none; color: black;">
+                        <% if (typeof note !== 'undefined' && note && note.title) { %>
+                            <%= note.title %>
+                        <% } else { %>
+                            Noteable
+                        <% } %>
+                    </a>
+                </h1>
             </div>
             <div>
                 <form class="search-form" action="/notes" method="GET" style="display: inline;">
-                    <label for="searchInput">Search</label>
-                    <input type="text" name="searchTerm" id="searchInput">
+                    <input type="text" name="searchTerm" id="searchInput" placeholder="Search">
                     <button type="submit">Search</button>
                 </form>
                 <button class="create-note-button" onclick="window.location.href='/create-note'" style="border: none; background: none; padding: 0;">
@@ -22,19 +57,9 @@
                 </button>
             </div>
         </nav>
-        <div class="sidebar">
-            <!-- Sidebar content goes here -->
-            <% if (typeof notes !== 'undefined' && notes.length > 0) { %>
-                <% notes.forEach(function(note) { %>
-                    <a href="/notes/<%= note.id %>"><%= note.title %></a>
-                <% }); %>
-            <% } else { %>
-                <p>No notes available.</p>
-            <% } %>
-        </div>
         <div class="main-content">
             <%- body %>  <!-- Main content injected here -->
         </div>
-    </div>
+    </main>
 </body>
 </html>

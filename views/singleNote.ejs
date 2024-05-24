@@ -8,9 +8,9 @@
 </head>
 <body>
 
-    <div class="note">
-        <h1><%= note.title %></h1>
-        <p><%= note.contents%></p>
+    <div class="singlenote">
+        <h1><%- note.title %></h1>
+        <p><%- note.contents%></p>
         <p><%= new Date(note.timestamp) %></p>
         <a href="/notes">Back</a>
 

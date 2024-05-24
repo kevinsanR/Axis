@@ -1,22 +1,20 @@
 body {
-  font-family: "Inter";
-}
-
-.box1 {
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
 }
-.box1 h1,
-.box1 img {
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
+main {
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 li {
   list-style: none;
 }
-
 form {
   display: flex;
   flex-direction: column;
@@ -34,16 +32,21 @@ nav {
   align-items: center;
   padding: 10px;
   background-color: #f8f9fa;
+  font-family: "Inter";
+  width: 100%;
+  box-sizing: border-box; /* Include padding and border in the element's total width */
 }
+
 .notes {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  max-width: 80%;
-  width: 100%;
+  max-width: 100%;
+  width: auto;
   align-items: center;
   justify-content: flex-end;
   margin-left: auto;
+  border-radius: 50%;
 }
 .search-form {
   display: flex;
@@ -59,7 +62,28 @@ nav {
   display: flex;
   justify-content: end;
   align-items: start;
-  width: 100%;
+  min-width: 100%;
+  min-height: 250px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-family: "Inter";
+  margin: 10px;
+}
+.singlenote {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: end;
+  align-items: start;
+  width: 90%;
+  margin: 20px;
+  box-sizing: border-box;
+  font-family: "Inter";
+  flex-direction: column;
 }
 
 .note h2 {
@@ -67,7 +91,7 @@ nav {
 }
 
 .note p {
-  color: #666;
+  color: black;
 }
 
 .note a {
@@ -78,16 +102,17 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 60vh;
+  width: 100%;
+  height: 80vh;
 }
 .create-note-form {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  width: 708px;
-  height: 50%;
+  width: auto;
+  height: 100%;
   font-family: "Inter";
+  justify-content: center;
 }
 .title {
   height: 163px;
@@ -117,6 +142,11 @@ nav {
   height: 24px; /* Adjust size as needed */
   background-color: #666;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 .sidebar {
   width: 200px; /* Set the width of the sidebar */
   height: 100vh; /* Full height */
@@ -125,6 +155,7 @@ nav {
   padding: 20px; /* Padding around the content */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow on the right side */
   font-family: "Inter";
+  flex-shrink: 0;
 }
 
 .sidebar a {
@@ -133,20 +164,61 @@ nav {
   text-decoration: none; /* No underline */
   color: black; /* Text color */
   border-bottom: 1px solid #ddd; /* Separator between items */
+  font-family: "Inter";
 }
 
 .sidebar a:hover {
   background-color: #ddd; /* Light grey background on hover */
 }
-
-.main-content {
-  flex-grow: 1; /* Take remaining space */
-  padding: 20px; /* Padding around the content */
+.create-note-button2 {
+  width: 25%;
 }
-#toggleSidebar {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
+.sidebar {
+  position: relative;
+  height: 100vh; /* Adjust based on your layout needs */
+  overflow-y: auto; /* Enables scrolling for overflow content */
 }
 
+.calendar-button {
+  position: auto; /* Positions the button absolutely within the sidebar */
+  bottom: 0; /* Anchors the button to the bottom */
+  left: 0; /* Aligns the button to the left */
+  width: 90%; /* Ensures the button stretches across the sidebar */
+  padding: 10px; /* Optional: Adds some padding inside the button */
+
+  text-align: center; /* Centers the text inside the button */
+  background-color: #ccc; /* Example background color */
+  color: white; /* Text color */
+  text-decoration: none; /* Removes underline from link */
+  border: none; /* Removes border */
+}
+.profile-section {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 20px; /* Adjust spacing as needed */
+}
+
+.profile-pic {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%; /* Makes the image round */
+  margin-right: 10px; /* Space between image and name */
+}
+
+.user-name {
+  font-size: 16px; /* Adjust size as needed */
+  color: #333; /* Adjust color as needed */
+  width: 100%;
+}
+.username-form {
+  border: none; /* Removes border from the form itself, if any */
+  color: none;
+}
+
+/* Target the input within the form */
+.username-form .username-input {
+  border: none; /* Removes the border from the input element */
+  outline: none; /* Removes the focus outline which might appear as a border */
+  background-color: #f4f4f4;
+}
